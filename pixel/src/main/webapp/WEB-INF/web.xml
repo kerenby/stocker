@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+    <display-name>BanQ server</display-name>
+
+    <!--thrift -->
+    <servlet>
+        <servlet-name>thrift</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/thrift-config.xml</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <context-param>
+        <param-name>contextInitializerClasses</param-name>
+        <param-value>com.deviq.banq.web.profile.ContextProfileInitializer</param-value>
+    </context-param>
+
+
+    <!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+    <!-- Enable escaping of form submission contents -->
+    <!--<context-paramEq>-->
+    <!--<paramEq-name>defaultHtmlEscape</paramEq-name>-->
+    <!--<paramEq-value>true</paramEq-value>-->
+    <!--</context-paramEq>-->
+
+    <servlet-mapping>
+        <servlet-name>thrift</servlet-name>
+        <url-pattern>/thrift/*</url-pattern>
+    </servlet-mapping>
+
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>auth-server-app</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>runMode</param-name>
+        <param-value>${runMode}</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>banqConfigRepo</param-name>
+        <param-value>${banqConfigRepo}</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            ${integration.context}
+            classpath:spring/root-context.xml
+        </param-value>
+    </context-param>
+
+
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>HttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>Spring OpenEntityManagerInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+        <init-param>
+            <param-name>entityManagerFactoryBeanName</param-name>
+            <param-value>emf</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>RequestContextFilter</filter-name>
+        <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+    </filter>
+
+    <resource-ref>
+        <description>banq db connection</description>
+        <res-ref-name>jdbc/banq</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+    <!--<resource-ref>-->
+    <!--<description>banqcache db connection</description>-->
+    <!--<res-ref-name>jdbc/banqcache</res-ref-name>-->
+    <!--<res-type>javax.sql.DataSource</res-type>-->
+    <!--<res-auth>Container</res-auth>-->
+    <!--</resource-ref>-->
+    <filter-mapping>
+        <filter-name>RequestContextFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>HttpMethodFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>Spring OpenEntityManagerInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Creates the Spring Container shared by all Servlets and Filters -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <!-- The Spring RequestContextLister uses thread bound variables so to
+        use this Spring features requires that we apply <disable-event-thread />
+        within zk.xml -->
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.js</url-pattern>
+        <url-pattern>*.css</url-pattern>
+        <url-pattern>*.gif</url-pattern>
+        <url-pattern>*.eot</url-pattern>
+        <url-pattern>*.svg</url-pattern>
+        <url-pattern>*.ttf</url-pattern>
+        <url-pattern>*.woff</url-pattern>
+        <url-pattern>*.thrift</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>
