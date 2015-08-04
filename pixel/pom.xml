@@ -36,7 +36,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
+         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>

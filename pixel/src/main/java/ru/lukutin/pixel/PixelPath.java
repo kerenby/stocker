@@ -1,5 +1,7 @@
 package ru.lukutin.pixel;
 
+import ru.lukutin.uploader.UploaderService;
+
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -14,14 +16,17 @@ import javax.ws.rs.Produces;
 public class PixelPath {
 
     @Inject
-    HelloService helloService;
+    PixelService pixelService;
+
+    @Inject
+    UploaderService uploaderService;
 
     @GET
     @Path("json")
     @Produces({ "application/json" })
     public JsonObject getHelloWorldJSON() {
         return Json.createObjectBuilder()
-                .add("result", helloService.createHelloMessage("World"))
+                .add("result", pixelService.createHelloMessage("Hello Katya"))
                 .build();
     }
 
@@ -29,6 +34,7 @@ public class PixelPath {
     @Path("xml")
     @Produces({ "application/xml" })
     public String getHelloWorldXML() {
-        return "<xml><result>" + helloService.createHelloMessage("World") + "</result></xml>";
+        return "<xml><result>" + pixelService.createHelloMessage("World") + "</result></xml>";
     }
+
 }

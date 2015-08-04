@@ -6,7 +6,7 @@ import javax.ws.rs.core.Application;
 /**
  * Created by Sergey on 5/25/2015.
  */
-@ApplicationPath("slash")
+@ApplicationPath("path")
 public class Uploader extends Application {
 }
 

@@ -12,19 +12,19 @@ import javax.ws.rs.Produces;
 @Path("/")
 public class UploaderPath {
     @GET
-    @Path("json")
+    @Path("json-up")
     @Produces({ "application/json" })
     public JsonObject getHelloWorldJSON() {
         return Json.createObjectBuilder()
-                .add("result", "World")
+                .add("result", "Hello Uploader")
                 .build();
     }
 
     @GET
-    @Path("xml")
+    @Path("xml-up")
     @Produces({ "application/xml" })
     public String getHelloWorldXML() {
-        return "<xml><result>" + "World" + "</result></xml>";
+        return "<xml><result>" + "Uploader" + "</result></xml>";
     }
 
 }
