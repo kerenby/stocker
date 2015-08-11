@@ -1,6 +1,6 @@
 package ru.lukutin.pixel;
 
-import ru.lukutin.uploader.UploaderService;
+//import ru.lukutin.uploader.UploaderService;
 
 import javax.inject.Inject;
 import javax.json.Json;
@@ -18,8 +18,8 @@ public class PixelPath {
     @Inject
     PixelService pixelService;
 
-    @Inject
-    UploaderService uploaderService;
+//    @Inject
+//    UploaderService uploaderService;
 
     @GET
     @Path("json")

@@ -16,6 +16,7 @@
         <module>imager</module>
         <module>footager</module>
         <module>musicer</module>
+        <module>statisticer</module>
     </modules>
 
     <properties>
