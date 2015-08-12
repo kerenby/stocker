@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>openshift-deploy</module>
         <module>pixel</module>
         <module>color</module>
         <module>uploader</module>
@@ -17,7 +18,6 @@
         <module>footager</module>
         <module>musicer</module>
         <module>statisticer</module>
-        <module>openshift-deploy</module>
     </modules>
 
     <properties>

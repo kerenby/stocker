@@ -6,6 +6,6 @@ import javax.ws.rs.core.Application;
 /**
  * Created by Sergey on 5/25/2015.
  */
-@ApplicationPath("slash")
+@ApplicationPath("api")
 public class Pixel extends Application {
 }
