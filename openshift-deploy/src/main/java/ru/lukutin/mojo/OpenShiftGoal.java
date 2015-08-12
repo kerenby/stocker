@@ -19,31 +19,31 @@ import java.util.concurrent.Future;
 @Mojo(name = "odep")
 public class OpenShiftGoal extends AbstractMojo {
 
-    @Parameter(property="application")
+    @Parameter(property = "application")
     private String application;
 
-    @Parameter(property="server")
+    @Parameter(property = "server")
     private String server;
 
-    @Parameter(property="useSshKey")
+    @Parameter(property = "useSshKey")
     private boolean useSshKey;
 
-    @Parameter(property="key")
+    @Parameter(property = "key")
     private String key;
 
-    @Parameter(property="user")
+    @Parameter(property = "user")
     private String user;
 
-    @Parameter(property="password")
+    @Parameter(property = "password")
     private String password;
 
-    @Parameter(property="host")
+    @Parameter(property = "host")
     private String host;
 
-    @Parameter(property="warfile")
+    @Parameter(property = "warfile")
     private String warfile;
 
-    @Parameter(property="path")
+    @Parameter(property = "path")
     private String path;
 
     public String getApplication() {
@@ -130,25 +130,23 @@ public class OpenShiftGoal extends AbstractMojo {
         getLog().info("Path: " + getPath().toString());
 
         String[] params = {getHost(), getUser(), getKey(), getWarfile(), getPath()};
+        ExecutorService exec = null;
+        try {
+            exec = Executors.newFixedThreadPool(1);
+            Future<String[]> f = exec.submit(new SshClient(params));
 
-        ExecutorService exec = Executors.newFixedThreadPool(1);
-
-
-        Future<String[]> f = exec.submit(new SshClient(params));
-
-        int i=0;
-        System.out.print("\r[INFO] " + "Coping file.");
-        while (!f.isDone()) {
-
-            try {
+            System.out.print("\r[INFO] " + "Coping file.");
+            while (!f.isDone()) {
                 Thread.sleep(50);
                 System.out.print(".");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+            System.out.print("\n");
 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            exec.shutdown();
         }
-        System.out.print("\n");
 
     }
 

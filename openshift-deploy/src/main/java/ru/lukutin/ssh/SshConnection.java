@@ -4,10 +4,6 @@ import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 /**
  * Created by kerenby on 8/11/15.
  */
@@ -50,16 +46,15 @@ public class SshConnection {
         try {
             sftp = (ChannelSftp) session.openChannel("sftp");
             sftp.connect();
-
-            System.out.println(sftp.pwd());
-
             sftp.put(warFile, path);
             sftp.exit();
 
         } catch (Exception e) {
             System.err.print(e);
+
         } finally {
             if (sftp != null) {
+                System.out.print(" | War file was copied. |");
                 sftp.disconnect();
             }
         }
@@ -69,10 +64,9 @@ public class SshConnection {
         try {
             if (session != null) {
                 session.disconnect();
-                System.out.print("Session was closed");
+                System.out.print(" Session was closed");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
         }
     }
