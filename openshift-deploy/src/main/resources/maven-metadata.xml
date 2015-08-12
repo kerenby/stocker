@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <plugins>
+        <plugin>
+            <name>openshift-deploy-maven-plugin</name>
+            <prefix>odep</prefix>
+            <artifactId>openshift-deploy</artifactId>
+        </plugin>
+    </plugins>
+</metadata>

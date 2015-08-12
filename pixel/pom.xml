@@ -58,6 +58,7 @@
         </dependency>
     </dependencies>
 
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -81,6 +82,30 @@
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>ru.lukutin</groupId>
+                <artifactId>openshift-deploy-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <configuration>
+                    <application>pixel</application>
+                    <server>lukutin.ru</server>
+                    <user>55c4baa37628e11c610000cd</user>
+                    <host>pixel-uptoloader.rhcloud.com</host>
+                    <key>~/.ssh/id_rsa</key>
+                    <warfile>${project.build.directory}/pixel.war</warfile>
+                    <path>./wildfly/standalone/deployments/</path>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>odep</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
