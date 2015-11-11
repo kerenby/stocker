@@ -1,0 +1,36 @@
+### IDE Intellij's files ###
+*.iml
+*.ipr
+*.iws
+.idea/
+
+
+### Eclipse's files ###
+*.project
+*.classpath
+*.settings
+.settings/
+.metadata/
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+RemoteSystemsTempFiles/
+.externalToolBuilders/
+
+
+### System files ###
+.DS_Store
+
+
+### maven files ###
+target/
+
+
+### ant files ###
+build/
+dist/
+extras/
+
